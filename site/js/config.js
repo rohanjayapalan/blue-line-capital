@@ -1,4 +1,4 @@
-/* Edit these two lines after you push the repo to GitHub (see README). */
+/* Where the site reads its data: public/*.json and tape/ from this GitHub repo (see README). */
 window.BLC_CONFIG = {
   owner: "rohanjayapalan",          // your GitHub username
   repo: "blue-line-capital",       // the repository name
