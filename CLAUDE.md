@@ -101,18 +101,18 @@ C = 0.03, blend 100% logistic (XGBoost didn't beat it out of sample). xG holdout
 
 ## Status
 
-**Not live yet (checked 2026-10-09).** The GitHub repo `rohanjayapalan/blue-line-capital` holds only
-a one-line README; the code, data and workflows have never been pushed, so no bot has run. The
-build lives in a local copy (last pipeline output: `public/today.json` dated 2026-09-24, zero tape
-entries). The 2026-27 season is already under way, so every day before go-live is a day of picks lost.
+**Pushed to `main` on 2026-10-09**, with `site/js/config.js` pointing at `rohanjayapalan`. The
+end-to-end test passed on Python 3.12 before the push (the pinned numpy 1.26.4 won't build on 3.13,
+so use 3.12 locally, as CI does). The first Nightly run catches up every game since
+`LIVE_SEASON_START`, so the games missed before go-live are added to the ratings, but they were never
+locked or graded.
 
-Go-live checklist (details in README "Setup"):
+Still needs the owner (these can't be done from a repo push):
 
-1. Push the full project to `main`. Scheduled workflows only run from the default branch.
-2. Settings > Actions > General > Workflow permissions: read and write.
-3. Set `owner: "rohanjayapalan"` in `site/js/config.js` (it still says `YOUR-GITHUB-USERNAME`).
-4. Run the Train workflow once with odds ticked.
-5. Import to Vercel with root directory `site`.
+1. Import to Vercel with root directory `site`, framework preset "Other", no build command.
+2. Watch the repo (All activity) so data-source issues reach your email.
+3. Only if bot commits fail with a 403: Settings > Actions > General > Workflow permissions, read
+   and write. The workflows already ask for `contents: write`, which is normally enough.
 
 ### Is it running?
 

@@ -1,0 +1,32 @@
+# Run by hand: load historical odds, re-run the three-season backtest, retrain the live model.
+name: Train
+on:
+  workflow_dispatch:
+    inputs:
+      odds:
+        description: "Download historical closing odds from ESPN (needed once for the market comparison)"
+        type: boolean
+        default: true
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: blc-data
+  cancel-in-progress: false
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Train
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m pipeline.run train ${{ inputs.odds && '--odds' || '' }}
+      - name: Commit
+        run: bash scripts/commit.sh "train $(date -u +%Y-%m-%d)"
