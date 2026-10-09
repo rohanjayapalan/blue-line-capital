@@ -1,0 +1,346 @@
+{
+ "folds": [
+  {
+   "season": 20232024,
+   "label": "2023-24",
+   "train_seasons": [
+    20172018,
+    20182019,
+    20192020,
+    20212022
+   ],
+   "model": {
+    "games": 1312,
+    "accuracy": 0.6059,
+    "log_loss": 0.6641,
+    "brier": 0.236
+   },
+   "baseline_home": {
+    "games": 1312,
+    "accuracy": 0.5412,
+    "log_loss": 0.6898,
+    "brier": 0.2483
+   },
+   "by_phase": {
+    "early": {
+     "games": 166,
+     "accuracy": 0.5482,
+     "log_loss": 0.6801,
+     "brier": 0.2434
+    },
+    "mid": {
+     "games": 489,
+     "accuracy": 0.5971,
+     "log_loss": 0.6714,
+     "brier": 0.2395
+    },
+    "late": {
+     "games": 657,
+     "accuracy": 0.6271,
+     "log_loss": 0.6546,
+     "brier": 0.2315
+    }
+   },
+   "calibration": [
+    {
+     "p": 0.2673,
+     "won": 0.3043,
+     "n": 46
+    },
+    {
+     "p": 0.3537,
+     "won": 0.3723,
+     "n": 137
+    },
+    {
+     "p": 0.4547,
+     "won": 0.4551,
+     "n": 312
+    },
+    {
+     "p": 0.5478,
+     "won": 0.5928,
+     "n": 361
+    },
+    {
+     "p": 0.6453,
+     "won": 0.5955,
+     "n": 309
+    },
+    {
+     "p": 0.7388,
+     "won": 0.725,
+     "n": 120
+    },
+    {
+     "p": 0.832,
+     "won": 0.8095,
+     "n": 21
+    }
+   ],
+   "settings": {
+    "half_life": 6,
+    "carryover": 0.3,
+    "kalman": "k50",
+    "goalie_beta": 0.0,
+    "C": 0.03
+   },
+   "cv": {
+    "logistic": 0.66504,
+    "xgboost": 0.66988,
+    "blend": 0.66504,
+    "calibrated": 0.66485,
+    "accuracy": 0.5926
+   },
+   "xg": {
+    "holdout_season": 20222023,
+    "log_loss": 0.2311,
+    "auc": 0.7507,
+    "goals": 8248,
+    "xg": 8818.0,
+    "shots": 114088
+   },
+   "ot_share": 0.2073
+  },
+  {
+   "season": 20242025,
+   "label": "2024-25",
+   "train_seasons": [
+    20172018,
+    20182019,
+    20192020,
+    20212022,
+    20222023
+   ],
+   "model": {
+    "games": 1312,
+    "accuracy": 0.5762,
+    "log_loss": 0.6681,
+    "brier": 0.2379
+   },
+   "baseline_home": {
+    "games": 1312,
+    "accuracy": 0.5625,
+    "log_loss": 0.6865,
+    "brier": 0.2467
+   },
+   "by_phase": {
+    "early": {
+     "games": 169,
+     "accuracy": 0.6036,
+     "log_loss": 0.6573,
+     "brier": 0.2327
+    },
+    "mid": {
+     "games": 481,
+     "accuracy": 0.5696,
+     "log_loss": 0.67,
+     "brier": 0.239
+    },
+    "late": {
+     "games": 662,
+     "accuracy": 0.574,
+     "log_loss": 0.6695,
+     "brier": 0.2385
+    }
+   },
+   "calibration": [
+    {
+     "p": 0.2701,
+     "won": 0.5312,
+     "n": 32
+    },
+    {
+     "p": 0.3588,
+     "won": 0.375,
+     "n": 144
+    },
+    {
+     "p": 0.4549,
+     "won": 0.526,
+     "n": 308
+    },
+    {
+     "p": 0.5498,
+     "won": 0.5288,
+     "n": 382
+    },
+    {
+     "p": 0.642,
+     "won": 0.6355,
+     "n": 321
+    },
+    {
+     "p": 0.7352,
+     "won": 0.7768,
+     "n": 112
+    },
+    {
+     "p": 0.8152,
+     "won": 0.9231,
+     "n": 13
+    }
+   ],
+   "settings": {
+    "half_life": 6,
+    "carryover": 0.3,
+    "kalman": "k50",
+    "goalie_beta": 0.0,
+    "C": 0.03
+   },
+   "cv": {
+    "logistic": 0.66264,
+    "xgboost": 0.66597,
+    "blend": 0.66259,
+    "calibrated": 0.66248,
+    "accuracy": 0.5972
+   },
+   "xg": {
+    "holdout_season": 20232024,
+    "log_loss": 0.2265,
+    "auc": 0.756,
+    "goals": 8086,
+    "xg": 8569.5,
+    "shots": 114839
+   },
+   "ot_share": 0.2066
+  },
+  {
+   "season": 20252026,
+   "label": "2025-26",
+   "train_seasons": [
+    20172018,
+    20182019,
+    20192020,
+    20212022,
+    20222023,
+    20232024
+   ],
+   "model": {
+    "games": 1312,
+    "accuracy": 0.5564,
+    "log_loss": 0.6849,
+    "brier": 0.2459
+   },
+   "baseline_home": {
+    "games": 1312,
+    "accuracy": 0.5221,
+    "log_loss": 0.6928,
+    "brier": 0.2498
+   },
+   "by_phase": {
+    "early": {
+     "games": 167,
+     "accuracy": 0.5689,
+     "log_loss": 0.6858,
+     "brier": 0.2465
+    },
+    "mid": {
+     "games": 481,
+     "accuracy": 0.5114,
+     "log_loss": 0.6931,
+     "brier": 0.25
+    },
+    "late": {
+     "games": 664,
+     "accuracy": 0.5858,
+     "log_loss": 0.6788,
+     "brier": 0.2429
+    }
+   },
+   "calibration": [
+    {
+     "p": 0.3623,
+     "won": 0.4017,
+     "n": 117
+    },
+    {
+     "p": 0.4597,
+     "won": 0.4715,
+     "n": 333
+    },
+    {
+     "p": 0.5484,
+     "won": 0.5282,
+     "n": 549
+    },
+    {
+     "p": 0.6391,
+     "won": 0.6023,
+     "n": 264
+    },
+    {
+     "p": 0.7287,
+     "won": 0.725,
+     "n": 40
+    }
+   ],
+   "settings": {
+    "half_life": 6,
+    "carryover": 0.3,
+    "kalman": "k50",
+    "goalie_beta": 0.0,
+    "C": 0.03
+   },
+   "cv": {
+    "logistic": 0.66156,
+    "xgboost": 0.66343,
+    "blend": 0.66132,
+    "calibrated": 0.6612,
+    "accuracy": 0.5992
+   },
+   "xg": {
+    "holdout_season": 20242025,
+    "log_loss": 0.2253,
+    "auc": 0.7551,
+    "goals": 7901,
+    "xg": 8196.5,
+    "shots": 112237
+   },
+   "ot_share": 0.2485
+  }
+ ],
+ "overall": {
+  "games": 3936,
+  "accuracy": 0.5795,
+  "log_loss": 0.6724,
+  "brier": 0.2399
+ },
+ "overall_calibration": [
+  {
+   "p": 0.2688,
+   "won": 0.3882,
+   "n": 85
+  },
+  {
+   "p": 0.3581,
+   "won": 0.3819,
+   "n": 398
+  },
+  {
+   "p": 0.4565,
+   "won": 0.4837,
+   "n": 953
+  },
+  {
+   "p": 0.5487,
+   "won": 0.5464,
+   "n": 1292
+  },
+  {
+   "p": 0.6423,
+   "won": 0.6119,
+   "n": 894
+  },
+  {
+   "p": 0.7358,
+   "won": 0.7463,
+   "n": 272
+  },
+  {
+   "p": 0.825,
+   "won": 0.8333,
+   "n": 36
+  }
+ ]
+}
