@@ -66,12 +66,20 @@ def shin(dec_home, dec_away):
     return p[0] / sum(p)
 
 
+def sane(home, away):
+    """True if two decimal prices look like one real pre-game line (margin inside config.QUOTE_MARGIN)."""
+    if not home or not away:
+        return False
+    lo, hi = config.QUOTE_MARGIN
+    return lo <= 1 / home + 1 / away - 1 <= hi
+
+
 def consensus(quotes):
     """
     quotes: list of {"book": name, "home": decimal, "away": decimal}.
     Returns fair home probability (average of each book's Shin probability), best prices, vig.
     """
-    good = [q for q in quotes if q.get("home") and q.get("away")]
+    good = [q for q in quotes if sane(q.get("home"), q.get("away"))]
     if not good:
         return None
     probs = [shin(q["home"], q["away"]) for q in good]

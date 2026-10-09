@@ -3,6 +3,8 @@ Historical sportsbook odds (opening + closing moneylines) from ESPN, used ONLY t
 backtest against the market. ESPN blocks many cloud sandboxes but answers GitHub Actions.
 Output: data/odds_history.parquet - one row per game per sportsbook.
 For a finished game ESPN's "current" line is frozen at puck drop, i.e. it IS the closing line.
+Except for the "... - Live Odds" feeds: their close is the in-game price at the final horn (1.005 vs 41),
+which leaks the result, so they are dropped here and again in backtest.market_section.
 """
 import concurrent.futures as cf
 from datetime import datetime
@@ -42,9 +44,15 @@ def _items(js):
     return out
 
 
+def is_live_feed(provider):
+    return "live" in str(provider).lower()
+
+
 def event_odds(event_id):
     rows = []
     for it in _items(nhl_api.espn_odds(event_id)):
+        if is_live_feed((it.get("provider") or {}).get("name", "")):
+            continue
         h, a = it.get("homeTeamOdds") or {}, it.get("awayTeamOdds") or {}
         hc = _line(h, "close") or _line(h, "current") or _dec(h.get("moneyLine"))
         ac = _line(a, "close") or _line(a, "current") or _dec(a.get("moneyLine"))
