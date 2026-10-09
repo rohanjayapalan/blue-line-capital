@@ -126,6 +126,7 @@ LIVE_ONLY_FEATURES = ["edge_speed", "edge_ozone"]
 # ---------------------------------------------------------------- market + betting
 BOOKS = {7: "FanDuel", 9: "DraftKings", 6: "Veikkaus", 2: "Unibet", 3: "Tipsport", 8: "Sportradar"}
 PREFERRED_BOOKS = [7, 9]          # North American books we "bet" at
+QUOTE_MARGIN = (0.0, 0.15)        # a real pre-game two-way line carries a 0-15% margin; anything else is stale or in-game
 BET = {
     "start_bankroll": 10_000.0,
     "alpha_normal": 0.5,          # how far we move from the market price toward our model

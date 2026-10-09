@@ -116,6 +116,8 @@ def market_section(preds):
     if not path.exists():
         return None
     odds = pd.read_parquet(path).dropna(subset=["home_close", "away_close"])
+    odds = odds[~odds["provider"].str.contains("live", case=False, na=False)]   # in-game prices leak the result
+    odds = odds[[market.sane(h, a) for h, a in zip(odds["home_close"], odds["away_close"])]]   # drop stale quotes
     rows = []
     for gid, grp in odds.groupby("game_id"):
         op = grp.dropna(subset=["home_open", "away_open"])

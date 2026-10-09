@@ -94,7 +94,15 @@ def cmd_train(args):
     live.write_json(S("score_adjust.json"), world["adjust"], indent=1)
     live.write_json(S("league.json"), world["league"], indent=1)
     save_snapshot(world, model)
-    publish.run(log=log)
+    publish.run(games=todays_games(), log=log)
+
+
+def todays_games():
+    """Tonight's schedule for publish, so a nightly or train run doesn't blank the site's slate."""
+    try:
+        return nhl_api.games_on(live.site_date())
+    except (DataFormatError, SourceDownError):
+        return None
 
 
 # ============================================================== nightly
@@ -261,11 +269,7 @@ def cmd_nightly(args):
             live.write_json(S("snapshot.json"), snap)
     except Exception as e:
         log(f"[nightly] EDGE skipped: {e!r}")
-    try:
-        games_today = nhl_api.games_on(live.site_date())
-    except (DataFormatError, SourceDownError):
-        games_today = None
-    publish.run(games=games_today, log=log)
+    publish.run(games=todays_games(), log=log)
 
 
 # ============================================================== pregame

@@ -84,8 +84,10 @@ python -m http.server 8000                       # then open http://localhost:80
 - Daily Faceoff: parsed from `__NEXT_DATA__` (`homeTeamSlug`, `homeGoalieName`, `homeNewsStrengthName`).
   A format change raises `DataFormatError` and opens a GitHub issue; predictions fall back to
   usage-based goalies and last-game lineups.
-- ESPN odds history was blocked from the build sandbox; it's meant to run from Actions (`train --odds`).
-  It's optional: failures are logged, never fatal.
+- ESPN odds history (`train --odds`) runs from Actions; it's optional, failures are logged, never fatal.
+  Its "... - Live Odds" feeds hold in-game prices that leak the result, and some 2023-24 books are
+  stale (negative margin). Both are filtered: `market.sane` keeps only lines with a 0 to 15% margin,
+  live and in the backtest. Never relax that without re-checking the market accuracy (~59%, not 90%).
 - The site fetches `public/*.json` and `tape/<season>.jsonl` from `raw.githubusercontent.com` (owner set
   in `site/js/config.js`), so data commits never redeploy Vercel. Vercel's root directory is `site`.
 - `publish` skips writes when only `generated_at` changed, and health refreshes `last_ok` at most every
@@ -95,7 +97,8 @@ python -m http.server 8000                       # then open http://localhost:80
 
 58.0% picks right, log loss 0.672, Brier 0.240. By season: 2023-24 60.6% / 0.664,
 2024-25 57.6% / 0.668, 2025-26 55.6% / 0.685 (a parity year: home teams won 52.2%).
-Roughly market-level; closing lines usually sit near 0.67. Live model CV: log loss 0.661, 59.9%.
+Closing line on the same games: 59.3% / 0.665, so the model trails the market slightly; every
+simulated book loses roughly the vig over the backtest. Live model CV: log loss 0.661, 59.9%.
 Chosen settings: half-life 6, carryover 0.3, Kalman 50% goals / 50% xG, goalie streak weight 0,
 C = 0.03, blend 100% logistic (XGBoost didn't beat it out of sample). xG holdout AUC about 0.75.
 
@@ -106,6 +109,11 @@ end-to-end test passed on Python 3.12 before the push (the pinned numpy 1.26.4 w
 so use 3.12 locally, as CI does). The first Nightly run catches up every game since
 `LIVE_SEASON_START`, so the games missed before go-live are added to the ratings, but they were never
 locked or graded.
+
+First live runs on 2026-10-09: Nightly caught up the season, Pregame published tonight's picks, Train
+loaded ESPN odds (the first market comparison leaked results; fixed in the follow-up, see quirks).
+The test now skips the bot's live files (`provisional.json`, `record.json`, line caches) when it
+copies `state/`.
 
 Still needs the owner (these can't be done from a repo push):
 

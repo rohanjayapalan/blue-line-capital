@@ -20,8 +20,10 @@ from pipeline.health import SourceDownError
 TMP = Path(os.environ.get("BLC_TEST_DIR") or tempfile.mkdtemp())   # set BLC_TEST_DIR to keep the output
 for d in ("state", "tape", "public"):
     (TMP / d).mkdir()
+LIVE_PROGRESS = {"provisional.json", "record.json", "lines.json", "lines_cache.json"}   # the bot's real run, not model files
 for f in config.STATE_DIR.glob("*.json"):
-    shutil.copy(f, TMP / "state" / f.name)
+    if f.name not in LIVE_PROGRESS:
+        shutil.copy(f, TMP / "state" / f.name)
 config.STATE_DIR, config.TAPE_DIR, config.PUBLIC_DIR = TMP / "state", TMP / "tape", TMP / "public"
 
 GAMES = [("FLA", "CAR", "21:00", "+115", "-135"), ("MTL", "TOR", "23:00", "+140", "-165"),

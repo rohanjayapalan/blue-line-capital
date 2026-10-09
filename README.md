@@ -19,9 +19,12 @@ older, learning after every game exactly as it does live.
 | 2025-26 | 1,312 | 55.6% | 0.685 | 0.693 |
 | **All** | **3,936** | **58.0%** | **0.672** | |
 
-Log loss grades probabilities (lower is better; 0.693 is a coin flip). NHL closing betting lines
-typically land around 0.67, so the model is roughly market-level. The Train workflow downloads
-historical closing odds and adds the exact model-vs-market comparison to the site.
+Log loss grades probabilities (lower is better; 0.693 is a coin flip).
+
+Against the closing betting line on the same 3,936 games, the market got 59.3% right with a log
+loss of 0.665, so the model trails it slightly (58.0%, 0.672) and beat it only in 2025-26 on
+accuracy. Every simulated betting strategy lost roughly the bookmaker's margin over the three
+seasons. That's the honest baseline the live season is measured against.
 
 ## How it works
 

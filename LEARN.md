@@ -327,7 +327,22 @@ information and all the sharp money. Beating it on log loss is the hardest test 
 "Market followed us" measures how often the line moved toward the model's number after opening,
 a classic sign of real information.
 
-**File:** `pipeline/market.py`.
+**Throwing out bad quotes.** A real pre-game line always carries a margin: the two implied
+probabilities add up to a bit more than 100%, usually 102 to 108%. A quote that adds up to *less*
+than 100% is a free lunch, and free lunches in data are almost always errors. Think of a shop that
+lists the same item at two prices because one price tag is three weeks old. So `market.sane` only
+accepts lines with a margin between 0 and 15%, both live and in the backtest.
+
+Two real errors this caught in ESPN's history:
+
+- **The "Live Odds" feeds.** Their closing price is the in-game price at the final horn (1.005 on
+  the winner, 41.0 on the loser). Left in, the "market" called 90% of 2024-25 games right. That's
+  not a market, it's the scoreboard. These feeds are dropped by name.
+- **Stale books in 2023-24.** Six books had margins around -15%, so taking the best price
+  across books created risk-free bets on a third of games and grew the simulated bankroll to
+  $18.7 million. With the filter, every strategy loses roughly the vig, which is what really happens.
+
+**File:** `pipeline/market.py` (and `odds_history.py` for the ESPN download).
 
 ---
 
