@@ -1,2 +1,2 @@
 # blue-line-capital
-An NHL winnign predictor.  
+An NHL winning predictor.  
