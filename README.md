@@ -14,7 +14,7 @@ older, learning after every game exactly as it does live.
 | 2023-24 | 1,312 | 60.6% | 0.664 | 0.690 |
 | 2024-25 | 1,312 | 57.6% | 0.668 | 0.687 |
 | 2025-26 | 1,312 | 55.6% | 0.685 | 0.693 |
-| **All** | **3,936** | **58.0%** | **0.672** | | 
+| **All** | **3,936** | **58.0%** | **0.672** | **0.689**| 
 
 Log loss grades probabilities (lower is better; 0.693 is a coin flip).
 
