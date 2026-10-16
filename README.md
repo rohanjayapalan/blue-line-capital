@@ -1,4 +1,4 @@
-# Blue Line Capital
+# Blue Line Capital (Link: blue-line-capital-site-v5y2-70jg5ip9w.vercel.app )
 
 A machine-learning model that picks the winner of every NHL regular-season game (overtime and
 shootouts included), locks each pick 10 minutes before puck drop in a tamper-evident ledger, and
