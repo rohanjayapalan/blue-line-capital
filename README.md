@@ -60,8 +60,6 @@ flowchart LR
   J --> S[Vercel site: Tonight, Record, Scoreboard, Model]
 ```
 
-The full explanation of every part, with the math and interview talking points, is in
-[LEARN.md](LEARN.md).
 
 
 What's where
