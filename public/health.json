@@ -3,11 +3,11 @@
  "runs": {},
  "sources": {
   "Daily Faceoff goalies": {
-   "last_ok": "2026-11-15T21:21:15+00:00",
+   "last_ok": "2026-11-16T13:11:27+00:00",
    "status": "ok"
   },
   "NHL schedule": {
-   "last_ok": "2026-11-16T04:46:26+00:00",
+   "last_ok": "2026-11-16T13:11:27+00:00",
    "status": "ok"
   }
  }
