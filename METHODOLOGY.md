@@ -1,7 +1,7 @@
-# LEARN.md: how Blue Line Capital works, piece by piece
+# How Blue Line Capital works
 
-This guide walks through every part of the system in the order the data flows, with the math and
-the reasoning. Each section ends with the file to open and a line you can say in an interview.
+This walks through every part of the system in the order the data flows, with the math and the
+reasoning. Each section ends with the file to open.
 
 ---
 
@@ -35,8 +35,6 @@ skaters, home goalie in net. `1541` means the home team is short-handed. This is
 5-on-5 versus power play, and how much time each team spent in each state.
 
 **Files:** `pipeline/parse_game.py`, `pipeline/store.py`.
-**Say:** "I built the dataset from raw play-by-play: 1.28 million shot attempts, validated against
-official final scores."
 
 ---
 
@@ -63,8 +61,6 @@ because their coordinates mark the block, not the shot.
 - **Log loss about 0.23** (defined in section 10).
 
 **File:** `pipeline/xg_model.py`.
-**Say:** "Shot quality predicts future results better than goals, so I trained my own xG model and
-validated it out of sample."
 
 ---
 
@@ -91,8 +87,6 @@ factor = (n * arena_avg + 20 * league_avg) / (n + 20) / league_avg
 With few games, the 20 "pretend average games" dominate; with many, the real data does.
 
 **File:** `pipeline/team_stats.py`.
-**Say:** "Raw event counts are biased by game state and by scorekeepers, so I corrected both before
-modelling."
 
 ---
 
@@ -159,9 +153,6 @@ rating_z = (θ_home - θ_away) / sqrt(scale^2 + variance of the gap)
 ```
 
 **File:** `pipeline/ratings.py`.
-**Say:** "A Kalman filter gives each rating an error bar, so the model automatically trusts early-season
-ratings less. It's the same math used for tracking in aerospace and for estimating hidden factors in
-finance."
 
 ---
 
@@ -188,8 +179,6 @@ A random hot week has |t| under 1 and gets ignored. A sustained, consistent run 
 machinery stays in, so if streaks ever start to matter the tuning will pick it up.
 
 **File:** `pipeline/goalies.py`.
-**Say:** "I tested my own hypothesis that goalie streaks predict results. The out-of-sample data
-rejected it, so the model uses goalie talent only."
 
 ---
 
@@ -289,8 +278,6 @@ Results:
 2025-26 was a parity season: home teams won only 52.2%, and every simple model found it hard.
 
 **File:** `pipeline/backtest.py`.
-**Say:** "I never report in-sample numbers. Every result is walk-forward, with a two-season gap
-between the training data and the test season."
 
 ---
 
@@ -383,8 +370,6 @@ above 1%), and three flat $100 benchmarks (always the favourite, always the home
 pick). Each reports ROI, worst drawdown and a **t-stat** on the per-bet returns, which asks whether
 profit is distinguishable from luck (above 2 is the usual bar).
 
-**Say:** "I size positions with fractional Kelly behind a pre-trade checklist, and I measure
-performance with drawdown and statistical significance, not just profit."
 
 ---
 
@@ -427,23 +412,3 @@ started, and never one made after.
 - Backchecking isn't in public data. Own-zone giveaways and chances allowed are proxies.
 - Three backtest seasons is a small sample for betting results. The t-stat is there to say so.
 - Online learning is deliberately slow. In testing, faster rates chased noise.
-
----
-
-## Questions an interviewer might ask
-
-**Why not just use accuracy?** Accuracy ignores confidence. A model that says 51% on everything can
-match a sharper model's accuracy while being useless for pricing. Log loss and calibration measure
-whether the probabilities are right, and that's what a bet or a trade depends on.
-
-**How do you know you're not overfitting?** Walk-forward testing with a two-season gap, settings
-chosen by leave-one-season-out cross-validation, strong regularisation, and shrinkage everywhere. And
-when XGBoost didn't beat logistic regression out of sample, the blend dropped it.
-
-**What would you do with more time?** Player tracking data for zone entries and backchecking,
-Bayesian hierarchical player ratings, and a proper closing-line-value study once a full live season
-of prices is recorded.
-
-**What's the finance connection?** It's the same stack as a quant desk: a signal (the model), a
-benchmark (the closing line), position sizing (Kelly), pre-trade risk checks, P&L attribution (the
-why waterfall), and an audit trail (the tape).
