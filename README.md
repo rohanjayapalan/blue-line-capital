@@ -1,11 +1,15 @@
-# Blue Line Capital 
-(Link: blue-line-capital-site-v5y2-70jg5ip9w.vercel.app )
+# Blue Line Capital
+
+**Live site:** https://blue-line-capital-site-v5y2-70jg5ip9w.vercel.app, updated every 10 minutes on game days.
 
 A machine-learning model that picks the winner of every NHL regular-season game (overtime and
 shootouts included), locks each pick 10 minutes before puck drop in a tamper-evident ledger, and
 grades itself against the betting market with five simulated bankrolls. Everything runs on its own:
 GitHub Actions collects the data, trains, predicts and publishes; Vercel serves the site.
 
+## Results
+
+### Backtest
 
 Each season was replayed one day at a time by a model trained only on seasons at least two years
 older, learning after every game exactly as it does live.
@@ -24,7 +28,16 @@ loss of 0.665, so the model trails it slightly (58.0%, 0.672) and beat it only i
 accuracy. Every simulated betting strategy lost roughly the bookmaker's margin over the three
 seasons. That's the honest baseline the live season is measured against.
 
+### Live season
+
+Every pick since Oct 9, 2026 is locked 10 minutes before puck drop and graded the next morning. The
+site's Record page has the running results. Each line in `tape/` includes the hash of the line before
+it, and the site re-checks the whole chain in your browser, so no pick can be changed after the fact
+without it showing.
+
 ## How it works
+
+The full write-up, with the math behind every piece, is in [METHODOLOGY.md](METHODOLOGY.md).
 
 ```mermaid
 flowchart LR
@@ -60,9 +73,7 @@ flowchart LR
   J --> S[Vercel site: Tonight, Record, Scoreboard, Model]
 ```
 
-
-
-What's where
+## What's where
 
 ```
 pipeline/          the model and the jobs (Python)
