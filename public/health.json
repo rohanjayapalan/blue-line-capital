@@ -4,7 +4,7 @@
  "sources": {
   "Daily Faceoff goalies": {
    "last_error": "2026-11-27T17:00:28+00:00",
-   "last_ok": "2026-11-27T19:19:17+00:00",
+   "last_ok": "2026-11-28T15:42:38+00:00",
    "status": "ok"
   },
   "Daily Faceoff lines": {
@@ -13,7 +13,7 @@
    "status": "error"
   },
   "NHL schedule": {
-   "last_ok": "2026-11-28T02:03:22+00:00",
+   "last_ok": "2026-11-28T15:42:38+00:00",
    "status": "ok"
   }
  }
